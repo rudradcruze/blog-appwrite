@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import authService from "./appwrite/auth";
+import { Outlet } from "react-router-dom";
 import { login, logout } from "./store/authSlice";
 import { Footer, Header } from "./components";
 
@@ -12,9 +13,9 @@ function App() {
     useEffect(() => {
         authService
             .getCurrentUser()
-            .then((userDate) => {
-                if (userDate) {
-                    dispatch(login({ userDate }));
+            .then((userData) => {
+                if (userData) {
+                    dispatch(login({ userData }));
                 } else {
                     dispatch(logout());
                 }
@@ -26,7 +27,9 @@ function App() {
         <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
             <div className="w-full block">
                 <Header />
-                TODO: <main>{/* <Outlet /> */}</main>
+                <main>
+                    <Outlet />
+                </main>
                 <Footer />
             </div>
         </div>
